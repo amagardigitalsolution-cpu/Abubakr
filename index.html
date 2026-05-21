@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABUBAKR INTERNATIONALMODELSCHOOL </title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --ink:#0d0f14;--cream:#f5f0e8;--warm:#f9f5ed;
+    --gold:#c8922a;--gold-light:#e8b84b;--ruby:#b83232;
+    --emerald:#1a6b4a;--slate:#4a5568;--mist:#e8e4dc;
+    --nursery:#7c4a8c;--primary:#2c6e8a;--secondary:#1a6b4a;
+    --radius:3px;--shadow:0 4px 24px rgba(13,15,20,.10);
+    --shadow-lg:0 12px 48px rgba(13,15,20,.18);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden}
+  /* HEADER */
+  header{background:var(--ink);color:var(--cream);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+  .logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:-.5px}
+  .logo span{color:var(--gold)}
+  .header-meta{font-family:'DM Mono',monospace;font-size:11px;color:rgba(245,240,232,.5);letter-spacing:1px;text-transform:uppercase}
+  /* LAYOUT */
+  .app{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px)}
+  /* SIDEBAR */
+  .sidebar{background:var(--ink);color:var(--cream);padding:32px 0;border-right:1px solid rgba(255,255,255,.06);position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+  .sidebar-section{margin-bottom:8px}
+  .sidebar-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.35);padding:0 24px;margin-bottom:8px;display:block}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 24px;cursor:pointer;transition:all .2s;font-size:14px;font-weight:500;color:rgba(245,240,232,.65);border-left:3px solid transparent;user-select:none}
+  .nav-item:hover{background:rgba(255,255,255,.05);color:var(--cream)}
+  .nav-item.active{color:var(--gold);border-left-color:var(--gold);background:rgba(200,146,42,.08)}
+  .nav-icon{font-size:16px;width:20px;text-align:center}
+  .sidebar-divider{height:1px;background:rgba(255,255,255,.07);margin:16px 24px}
+  /* MAIN */
+  .main{padding:40px;overflow-y:auto}
+  .page{display:none;animation:fadeIn .3s ease}
+  .page.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  /* PAGE HEADER */
+  .page-header{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid var(--mist);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+  .page-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;letter-spacing:-.5px;line-height:1}
+  .page-sub{font-size:13px;color:var(--slate);margin-top:6px;font-weight:400}
+  /* CARDS */
+  .card{background:white;border-radius:8px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--mist)}
+  .card-header{padding:20px 24px;border-bottom:1px solid var(--mist);display:flex;justify-content:space-between;align-items:center}
+  .card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700}
+  .card-body{padding:24px}
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+  .stat-card{background:white;border-radius:8px;padding:22px 24px;border:1px solid var(--mist);box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .stat-card.gold::before{background:var(--gold)}
+  .stat-card.nursery-c::before{background:var(--nursery)}
+  .stat-card.primary-c::before{background:var(--primary)}
+  .stat-card.secondary-c::before{background:var(--secondary)}
+  .stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--slate);margin-bottom:10px}
+  .stat-value{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;letter-spacing:-1px;line-height:1}
+  .stat-sub{font-size:12px;color:var(--slate);margin-top:6px}
+  /* FORMS */
+  .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group.full{grid-column:1/-1}
+  label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--slate)}
+  input,select,textarea{font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;border:1.5px solid var(--mist);border-radius:var(--radius);background:var(--warm);color:var(--ink);transition:border-color .2s,box-shadow .2s;outline:none;width:100%}
+  input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,146,42,.12);background:white}
+  textarea{resize:vertical;min-height:80px}
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
+  .btn-primary{background:var(--ink);color:var(--cream)}
+  .btn-primary:hover{background:#1e2128;transform:translateY(-1px)}
+  .btn-gold{background:var(--gold);color:white}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
+  .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--mist)}
+  .btn-outline:hover{border-color:var(--ink);background:var(--warm)}
+  .btn-sm{padding:6px 14px;font-size:12px}
+  .btn-danger{background:var(--ruby);color:white}
+  .btn-danger:hover{background:#9b2929}
+  .btn-navy{background:#000000;color:white}
+  .btn-navy:hover{background:#333333;transform:translateY(-1px)}
+  .btn-success{background:var(--emerald);color:white}
+  .btn-success:hover{background:#0e4d35;transform:translateY(-1px)}
+  /* TABLES */
+  .subject-table{width:100%;border-collapse:collapse;font-size:14px}
+  .subject-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--slate);padding:10px 14px;text-align:left;background:var(--warm);border-bottom:2px solid var(--mist)}
+  .subject-table td{padding:8px 14px;border-bottom:1px solid var(--mist);vertical-align:middle}
+  .subject-table tr:last-child td{border-bottom:none}
+  .subject-table tr:hover td{background:rgba(200,146,42,.04)}
+  .score-input{width:80px;text-align:center;padding:7px 10px}
+  .grade-pill{display:inline-flex;align-items:center;justify-content:center;width:36px;height:26px;border-radius:4px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500}
+  .grade-A{background:rgba(26,107,74,.12);color:var(--emerald)}
+  .grade-B{background:rgba(44,110,138,.12);color:var(--primary)}
+  .grade-C{background:rgba(200,146,42,.12);color:var(--gold)}
+  .grade-D{background:rgba(184,50,50,.12);color:var(--ruby)}
+  .grade-F{background:rgba(184,50,50,.18);color:var(--ruby)}
+  .results-table{width:100%;border-collapse:collapse;font-size:13px}
+  .results-table th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--slate);padding:10px 16px;text-align:left;background:var(--warm);border-bottom:2px solid var(--mist);white-space:nowrap}
+  .results-table td{padding:12px 16px;border-bottom:1px solid var(--mist)}
+  .results-table tr:hover td{background:rgba(200,146,42,.04)}
+  .student-name{font-weight:600;font-size:14px}
+  .student-id{font-family:'DM Mono',monospace;font-size:11px;color:var(--slate)}
+  /* CHECKBOX */
+  .checkbox-cell{width:30px;text-align:center}
+  .promotion-checkbox{width:18px;height:18px;cursor:pointer}
+  /* MISC */
+  .search-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+  .search-row input,.search-row select{flex:1;min-width:160px;max-width:280px}
+  .action-row{display:flex;gap:10px;flex-wrap:wrap}
+  .toast-container{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:10px}
+  .toast{background:var(--ink);color:var(--cream);padding:12px 20px;border-radius:6px;font-size:13px;font-weight:500;box-shadow:var(--shadow-lg);animation:toastIn .3s ease,toastOut .3s ease 2.7s forwards;display:flex;align-items:center;gap:10px;max-width:320px}
+  .toast.success{border-left:3px solid var(--emerald)}
+  .toast.error{border-left:3px solid var(--ruby)}
+  @keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+  .empty-state{text-align:center;padding:60px 20px;color:var(--slate)}
+  .empty-icon{font-size:48px;margin-bottom:12px}
+  .empty-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .empty-sub{font-size:14px}
+  .progress-bar{height:6px;background:var(--mist);border-radius:3px;overflow:hidden;margin-top:4px}
+  .progress-fill{height:100%;border-radius:3px;transition:width .4s ease}
+  .position-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-family:'DM Mono',monospace;font-size:12px;font-weight:700}
+  .pos-1{background:#fde68a;color:#92400e}
+  .pos-2{background:#e5e7eb;color:#374151}
+  .pos-3{background:#fed7aa;color:#92400e}
+  .pos-other{background:var(--mist);color:var(--slate);font-size:11px}
+  /* REPORT OVERLAY */
+  .report-overlay{display:none;position:fixed;inset:0;background:rgba(13,15,20,.65);z-index:200;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px}
+  .report-overlay.open{display:flex}
+  .report-card{background:white;width:780px;max-height:92vh;overflow-y:auto;border-radius:6px;box-shadow:var(--shadow-lg);animation:slideUp .3s ease;font-family:Arial,Helvetica,sans-serif;display:flex;flex-direction:column}
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .rc-action-bar{background:var(--warm);border-top:1px solid var(--mist);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-shrink:0}
+  /* REPORT CARD INNER */
+  .rc{padding:22px 26px;color:#111;font-size:11.5px;line-height:1.35;font-family:Arial,Helvetica,sans-serif;flex:1}
+  .rc-school-header{display:flex;align-items:center;gap:16px;margin-bottom:8px;padding-bottom:10px;border-bottom:3px solid #000000}
+  .rc-logo-wrap{width:68px;height:68px;border-radius:50%;border:3px solid #000000;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px;background:#f0f4ff;overflow:hidden}
+  .rc-logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+  .rc-school-name{font-size:20px;font-weight:900;color:#000000;text-transform:uppercase;letter-spacing:.5px;line-height:1.1}
+  .rc-school-address{font-size:10.5px;color:#444;margin-top:3px;line-height:1.5}
+  .rc-motto{font-style:italic;font-weight:700;color:#c8922a;font-size:11px;margin-top:2px}
+  .rc-section-bar{background:#000000;color:white;text-align:center;font-weight:700;font-size:12px;letter-spacing:1.5px;padding:6px 12px;text-transform:uppercase;margin:8px 0 6px}
+  .rc-info-grid{border:1px solid #bbb;border-collapse:collapse;width:100%;margin-bottom:8px}
+  .rc-info-grid td{border:1px solid #bbb;padding:4px 8px;font-size:11px;vertical-align:middle}
+  .rc-info-label{font-weight:600;color:#333;white-space:nowrap;background:#f5f5f5;width:100px}
+  .rc-info-value{font-weight:700;color:#111}
+  .rc-info-value.green{color:#1a6b4a;font-weight:700}
+  .rc-subjects{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:11px}
+  .rc-subjects th{background:#000000;color:white;padding:5px 7px;text-align:center;font-weight:700;font-size:10.5px;border:1px solid #000000}
+  .rc-subjects th:first-child{text-align:left}
+  .rc-subjects td{border:1px solid #ccc;padding:4px 7px;text-align:center;vertical-align:middle}
+  .rc-subjects td:first-child{text-align:left;font-weight:500}
+  .rc-subjects tr:nth-child(even) td{background:#f8f8f8}
+  .rc-grade-a{color:#1a6b4a;font-weight:700}.rc-grade-b{color:#2c4a7c;font-weight:700}
+  .rc-grade-c{color:#c8922a;font-weight:700}.rc-grade-d{color:#888;font-weight:700}.rc-grade-f{color:#b83232;font-weight:700}
+  .rc-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .rc-sub-bar{background:#000000;color:white;font-weight:700;font-size:10px;letter-spacing:.8px;padding:4px 7px;text-transform:uppercase;border-left:4px solid #c8922a}
+  .rc-behavioral{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:3px}
+  .rc-behavioral th{background:#000000;color:white;padding:4px 7px;font-size:10px;font-weight:700}
+  .rc-behavioral td{border:1px solid #ccc;padding:3px 7px;vertical-align:middle}
+  .rc-behavioral tr:nth-child(even) td{background:#f8f8f8}
+  .rc-rating-bold{font-weight:700;text-align:center}
+  .rc-grading{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:3px}
+  .rc-grading th{background:#000000;color:white;padding:4px 7px;font-size:10px;font-weight:700;text-align:center}
+  .rc-grading td{border:1px solid #ccc;padding:3px 7px;text-align:center;vertical-align:middle}
+  .rc-grading tr:nth-child(even) td{background:#f8f8f8}
+  .rc-fail{color:#b83232;font-weight:700}
+  .rc-rating-scale{margin-top:5px;font-size:10px;background:#f0f4ff;border:1px solid #ccc;padding:4px 7px;border-radius:2px;color:#333}
+  .rc-rating-scale strong{color:#000000}
+  .rc-remarks-section{margin-bottom:10px}
+  .rc-remark-row{display:flex;gap:8px;margin-bottom:4px;font-size:11px;align-items:flex-start}
+  .rc-remark-label{font-weight:700;white-space:nowrap;min-width:100px;color:#000000}
+  .rc-remark-text{font-style:italic;color:#333;border-bottom:1px solid #bbb;flex:1;padding-bottom:1px}
+  /* QR CODE & SIGNATURES ROW */
+  .rc-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;padding-top:8px;border-top:1px solid #ccc;gap:20px}
+  .rc-signatures{display:flex;justify-content:space-between;align-items:flex-end;flex:2;gap:20px}
+  .rc-sig-block{text-align:center}
+  .rc-sig-line{width:170px;border-bottom:1.5px solid #333;margin-bottom:4px}
+  .rc-sig-label{font-size:10.5px;font-weight:600;color:#333}
+  .rc-stamp-box{border:1.5px dashed #aaa;width:90px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:#aaa;letter-spacing:1px;font-weight:600;text-transform:uppercase;gap:3px}
+  .rc-qr{text-align:center;flex-shrink:0}
+  .rc-qr canvas, .rc-qr img{width:70px;height:70px;border:1px solid #ddd;padding:4px;background:white}
+  .rc-qr-label{font-size:8px;color:#666;margin-top:2px}
+  /* MODAL */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;padding:20px}
+  .modal.open{display:flex}
+  .modal-content{background:white;max-width:600px;width:100%;border-radius:8px;max-height:80vh;overflow-y:auto}
+  .modal-header{padding:20px 24px;border-bottom:1px solid var(--mist);display:flex;justify-content:space-between;align-items:center}
+  .modal-body{padding:24px}
+  /* PROMOTION BATCH */
+  .batch-actions{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .app{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px}
+    .stats-grid{grid-template-columns:repeat(2,1fr)}.header{padding:0 20px}
+    .rc-bottom-grid{grid-template-columns:1fr}.report-card{width:100%}
+    .rc-footer{flex-direction:column;align-items:center}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Edu<span>Results</span></div>
+  <div class="header-meta">School Management System · 2024/2025</div>
+</header>
+<div class="app">
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <span class="sidebar-label">Overview</span>
+      <div class="nav-item active" onclick="navigate('dashboard')"><span class="nav-icon">◈</span> Dashboard</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Students</span>
+      <div class="nav-item" onclick="navigate('students')"><span class="nav-icon">◉</span> Student Register</div>
+      <div class="nav-item" onclick="navigate('enter-results')"><span class="nav-icon">◎</span> Enter Results</div>
+      <div class="nav-item" onclick="navigate('promotion')"><span class="nav-icon">⬆</span> Batch Promotion</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Reports</span>
+      <div class="nav-item" onclick="navigate('results')"><span class="nav-icon">▤</span> View Results</div>
+      <div class="nav-item" onclick="navigate('ranking')"><span class="nav-icon">◆</span> Class Ranking</div>
+      <div class="nav-item" onclick="navigate('print-class')"><span class="nav-icon">🖨</span> Print Class</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Settings</span>
+      <div class="nav-item" onclick="navigate('settings')"><span class="nav-icon">◇</span> Configuration</div>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page active">
+      <div class="page-header">
+        <div><div class="page-title">Dashboard</div><div class="page-sub">Overview of all school results</div></div>
+        <button class="btn btn-gold" onclick="navigate('enter-results')">＋ Enter Results</button>
+      </div>
+      <div class="stats-grid" id="dashboard-stats"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Recent Results</div><button class="btn btn-sm btn-outline" onclick="navigate('results')">View All</button></div>
+          <div class="card-body" style="padding:0"><div id="recent-results-table"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Performance by Level</div></div>
+          <div class="card-body" id="performance-breakdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDENTS -->
+    <div id="page-students" class="page">
+      <div class="page-header">
+        <div><div class="page-title">Student Register</div><div class="page-sub">Add and manage student records</div></div>
+        <button class="btn btn-gold" onclick="showAddStudentForm()">＋ Add Student</button>
+      </div>
+      <div id="add-student-form" style="display:none;margin-bottom:24px" class="card">
+        <div class="card-header"><div class="card-title">New Student</div><button class="btn btn-sm btn-outline" onclick="hideAddStudentForm()">✕ Cancel</button></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group"><label>Full Name</label><input type="text" id="new-name" placeholder="e.g. ZAKARIYA ABUBAKAR" oninput="this.value=this.value.toUpperCase()"></div>
+            <div class="form-group"><label>Reg. Number</label><input type="text" id="new-regnum" placeholder="e.g. 0001"></div>
+            <div class="form-group"><label>Level</label><select id="new-level" onchange="updateClassOptions('new')"><option value="nursery">Nursery</option><option value="primary" selected>Primary</option><option value="secondary">Secondary</option></select></div>
+            <div class="form-group"><label>Class</label><select id="new-class"></select></div>
+            <div class="form-group"><label>Gender</label><select id="new-gender"><option value="Male">Male</option><option value="Female">Female</option></select></div>
+            <div class="form-group"><label>Current Session</label><input type="text" id="new-session" value="2025/2026"></div>
+            <div class="form-group"><label>Attendance (Present / Total)</label><input type="text" id="new-attendance" placeholder="e.g. 62 / 64"></div>
+          </div>
+          <div style="margin-top:18px;display:flex;gap:10px">
+            <button class="btn btn-gold" onclick="addStudent()">Save Student</button>
+            <button class="btn btn-outline" onclick="hideAddStudentForm()">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div class="search-row">
+        <input type="text" id="student-search" placeholder="Search students…" oninput="renderStudentList()">
+        <select id="student-level-filter" onchange="renderStudentList()"><option value="">All Levels</option><option value="nursery">Nursery</option><option value="primary">Primary</option><option value="secondary">Secondary</option></select>
+      </div>
+      <div class="card"><div class="card-body" style="padding:0"><div id="students-table-container"></div></div></div>
+    </div>
+
+    <!-- BATCH PROMOTION -->
+    <div id="page-promotion" class="page">
+      <div class="page-header">
+        <div><div class="page-title">Batch Promotion</div><div class="page-sub">Promote multiple students to the next class at once</div></div>
+      </div>
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header"><div class="card-title">Select Students to Promote</div></div>
+        <div class="card-body">
+          <div class="form-grid" style="margin-bottom:20px">
+            <div class="form-group"><label>Current Level</label><select id="promote-level-filter" onchange="renderPromotionList()"><option value="">All Levels</option><option value="nursery">Nursery</option><option value="primary">Primary</option><option value="secondary">Secondary</option></select></div>
+            <div class="form-group"><label>Current Class</label><select id="promote-class-filter" onchange="renderPromotionList()"><option value="">All Classes</option></select></div>
+            <div class="form-group"><label>Promote To Level</label><select id="promote-to-level" onchange="updatePromotionClassOptions()"><option value="nursery">Nursery</option><option value="primary">Primary</option><option value="secondary">Secondary</option></select></div>
+            <div class="form-group"><label>Promote To Class</label><select id="promote-to-class"></select></div>
+          </div>
+          <div class="batch-actions">
+            <button class="btn btn-outline btn-sm" onclick="selectAllPromotion()">✓ Select All</button>
+            <button class="btn btn-outline btn-sm" onclick="deselectAllPromotion()">✗ Deselect All</button>
+            <button class="btn btn-success" onclick="executeBatchPromotion()">⬆ Promote Selected Students</button>
+          </div>
+          <div id="promotion-list-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTER RESULTS -->
+    <div id="page-enter-results" class="page">
+      <div class="page-header"><div><div class="page-title">Enter Results</div><div class="page-sub">Record subject scores for a student per term</div></div></div>
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header"><div class="card-title">Select Student, Session & Term</div></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group"><label>Student</label><select id="result-student-select" onchange="loadStudentSubjects()"><option value="">— Select Student —</option></select></div>
+            <div class="form-group"><label>Academic Session</label><input type="text" id="result-session" placeholder="e.g. 2025/2026" value="2025/2026"></div>
+            <div class="form-group"><label>Term</label><select id="result-term"><option>First Term</option><option selected>Second Term</option><option>Third Term</option></select></div>
+            <div class="form-group"><label>Class Size (for ranking)</label><input type="number" id="result-class-size" placeholder="e.g. 28" min="1"></div>
+          </div>
+        </div>
+      </div>
+      <div id="result-entry-section" style="display:none">
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><div class="card-title">Subject Scores</div><button class="btn btn-sm btn-outline" onclick="addSubjectRow()">＋ Add Subject</button></div>
+          <div class="card-body" style="padding:0;overflow-x:auto">
+            <table class="subject-table"><thead>汽<th style="width:220px">Subject</th><th>1st CA (20%)</th><th>2nd CA (20%)</th><th>Exam (60%)</th><th>Total (100%)</th><th>Grade</th><th>Remarks</th><th></th> </thead><tbody id="subject-rows"></tbody></table>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><div class="card-title">Behavioural Assessment</div></div>
+          <div class="card-body"><div class="form-grid" id="behavioural-grid"></div></div>
+        </div>
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><div class="card-title">Teacher Remarks</div></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-group full"><label>Class Teacher's Remark</label><textarea id="remark-class" placeholder="Auto-generated based on performance..."></textarea></div>
+              <div class="form-group full"><label>Head Teacher's Remark</label><textarea id="remark-head" placeholder="e.g. An outstanding performance. Keep up the wonderful effort…"></textarea></div>
+              <div class="form-group full"><label>Director's Remark</label><textarea id="remark-director" placeholder="e.g. Extremely proud of your consistent growth and character…"></textarea></div>
+            </div>
+          </div>
+        </div>
+        <div class="action-row">
+          <button class="btn btn-gold" onclick="saveResults()">💾 Save Results</button>
+          <button class="btn btn-outline" onclick="clearResultForm()">✕ Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW RESULTS -->
+    <div id="page-results" class="page">
+      <div class="page-header"><div><div class="page-title">View Results</div><div class="page-sub">Browse and print student report cards</div></div></div>
+      <div class="search-row">
+        <input type="text" id="results-search" placeholder="Search by name or reg…" oninput="renderResultsList()">
+        <select id="results-level-filter" onchange="renderResultsList()"><option value="">All Levels</option><option value="nursery">Nursery</option><option value="primary">Primary</option><option value="secondary">Secondary</option></select>
+        <select id="results-session-filter" onchange="renderResultsList()"><option value="">All Sessions</option></select>
+      </div>
+      <div class="card"><div class="card-body" style="padding:0"><div id="results-table-container"></div></div></div>
+    </div>
+
+    <!-- RANKING -->
+    <div id="page-ranking" class="page">
+      <div class="page-header"><div><div class="page-title">Class Ranking</div><div class="page-sub">Students ranked by total score</div></div></div>
+      <div class="search-row">
+        <select id="ranking-level-filter" onchange="renderRanking()"><option value="">All Levels</option><option value="nursery">Nursery</option><option value="primary">Primary</option><option value="secondary">Secondary</option></select>
+        <select id="ranking-class-filter" onchange="renderRanking()"><option value="">All Classes</option></select>
+        <select id="ranking-term-filter" onchange="renderRanking()"><option value="">All Terms</option><option>First Term</option><option>Second Term</option><option>Third Term</option></select>
+      </div>
+      <div class="card"><div class="card-body" style="padding:0"><div id="ranking-table-container"></div></div></div>
+    </div>
+
+    <!-- PRINT CLASS -->
+    <div id="page-print-class" class="page">
+      <div class="page-header">
+        <div><div class="page-title">Print Class Results</div><div class="page-sub">Print all report cards for a class as one document</div></div>
+      </div>
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header"><div class="card-title">🖨 Select Class to Print</div></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group"><label>Class</label><select id="print-class-select" onchange="previewClassPrint()"><option value="">— Select a class —</option></select></div>
+            <div class="form-group"><label>Term</label><select id="print-term-select" onchange="previewClassPrint()"><option>First Term</option><option selected>Second Term</option><option>Third Term</option></select></div>
+            <div class="form-group"><label>Sort Order</label><select id="print-class-sort" onchange="previewClassPrint()"><option value="name">Name (A–Z)</option><option value="total-desc">Total Score (High–Low)</option><option value="total-asc">Total Score (Low–High)</option></select></div>
+          </div>
+          <div id="print-class-info" style="margin-top:14px;font-size:13px;color:var(--slate)"></div>
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-navy" onclick="printClassResults()">🖨 Print All Report Cards</button>
+            <button class="btn btn-gold" onclick="saveClassAsPDF()">📄 Save as PDF</button>
+          </div>
+        </div>
+      </div>
+      <div id="print-class-preview" style="display:none" class="card">
+        <div class="card-header"><div class="card-title">Students in this Class</div></div>
+        <div class="card-body" style="padding:0"><div id="print-class-list"></div></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="page-settings" class="page">
+      <div class="page-header"><div><div class="page-title">Configuration</div><div class="page-sub">Grading scale &amp; data management</div></div></div>
+
+      <!-- LOGO UPLOAD -->
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header"><div class="card-title">🖼 School Logo</div></div>
+        <div class="card-body">
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <div id="logo-preview-wrap" style="width:80px;height:80px;border-radius:50%;border:3px solid #000;background:#f0f4ff;display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;flex-shrink:0">
+              <img id="logo-preview-img" style="width:100%;height:100%;object-fit:cover;display:none;" alt="Logo">
+              <span id="logo-preview-emoji">🎓</span>
+            </div>
+            <div>
+              <div style="font-size:13px;color:var(--slate);margin-bottom:12px">Pick your school logo — it saves automatically and shows on all report cards &amp; print.</div>
+              <label class="btn btn-gold" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;">
+                📁 Choose Logo Image
+                <input type="file" accept="image/*" onchange="uploadLogo(event)" style="display:none">
+              </label>
+              <button class="btn btn-outline btn-sm" style="margin-left:8px" onclick="removeLogo()">✕ Remove</button>
+              <div id="logo-upload-status" style="font-size:12px;margin-top:8px;font-weight:600"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+            <div class="card" style="margin-bottom:24px">
+        <div class="card-header"><div class="card-title">📦 Export &amp; Import Data</div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div><button class="btn btn-gold" onclick="exportData()">⬇ Download Backup</button></div>
+            <div><label class="btn btn-outline" style="cursor:pointer;display:inline-flex">⬆ Restore Backup<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label><div id="import-status" style="font-size:12px;margin-top:8px"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Grading Scale</div></div>
+        <div class="card-body">
+          <table class="subject-table" style="max-width:420px"><thead>汽<th>Grade</th><th>Min Score</th><th>Max Score</th><th>Remark</th> </thead><tbody id="grading-scale-rows"></tbody></table>
+          <div style="margin-top:16px"><button class="btn btn-gold" onclick="saveGradingScale()">Save Grading Scale</button></div>
+        </div>
+      </div>
+
+      <!-- SUBJECT CONFIGURATION PER SECTION -->
+      <div class="card" style="margin-top:24px">
+        <div class="card-header">
+          <div class="card-title">📚 Subjects per Section</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-sm" style="background:var(--nursery);color:white;padding:6px 14px" onclick="showSubjectSection('nursery')">Nursery</button>
+            <button class="btn btn-sm" style="background:var(--primary);color:white;padding:6px 14px" onclick="showSubjectSection('primary')">Primary</button>
+            <button class="btn btn-sm" style="background:var(--secondary);color:white;padding:6px 14px" onclick="showSubjectSection('secondary')">Secondary</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="subject-section-placeholder" style="color:var(--slate);font-size:13px;padding:4px 0">← Select a section above to configure its subjects.</div>
+          <div id="subject-section-editor" style="display:none">
+            <div id="subject-section-label" style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:4px"></div>
+            <div id="subject-section-hint" style="font-size:12px;color:var(--slate);margin-bottom:14px"></div>
+            <div id="subject-section-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-outline btn-sm" onclick="addSectionSubjectRow()">+ Add Subject</button>
+              <button class="btn btn-gold btn-sm" onclick="saveSectionSubjectList()">💾 Save</button>
+              <button class="btn btn-outline btn-sm" onclick="resetSectionSubjects()">↺ Reset Default</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- EDIT STUDENT MODAL -->
+<div id="edit-student-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><div class="card-title">Edit Student / Promote to Next Class</div><button class="btn btn-sm btn-outline" onclick="closeEditModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Full Name</label><input type="text" id="edit-name" oninput="this.value=this.value.toUpperCase()"></div>
+        <div class="form-group"><label>Reg. Number</label><input type="text" id="edit-regnum"></div>
+        <div class="form-group"><label>Level</label><select id="edit-level" onchange="updateClassOptions('edit')"></select></div>
+        <div class="form-group"><label>Class</label><select id="edit-class"></select></div>
+        <div class="form-group"><label>Gender</label><select id="edit-gender"><option>Male</option><option>Female</option></select></div>
+        <div class="form-group"><label>Current Session</label><input type="text" id="edit-session"></div>
+        <div class="form-group"><label>Attendance</label><input type="text" id="edit-attendance" placeholder="e.g. 62 / 64"></div>
+      </div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:flex-end">
+        <button class="btn btn-success" onclick="saveStudentEdit()">💾 Save Changes</button>
+        <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT CARD MODAL -->
+<div class="report-overlay" id="report-overlay">
+  <div class="report-card">
+    <div class="rc" id="report-printable"></div>
+    <div class="rc-action-bar">
+      <div style="font-size:13px;color:var(--slate)">Report Card Preview (click comments to edit)</div>
+      <div class="action-row">
+        <button class="btn btn-navy" onclick="printSingleReport()">🖨 Print Report Card</button>
+        <button class="btn btn-gold" onclick="saveSingleAsPDF()">📄 Save as PDF</button>
+        <button class="btn btn-outline" onclick="closeReport()">✕ Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HIDDEN PRINT IFRAME -->
+<iframe id="print-frame" style="display:none;position:fixed;width:0;height:0;border:none"></iframe>
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+/* ═══ HARD-CODED SCHOOL INFO ═══ */
+const SCHOOL_INFO = {
+  name: 'ABUBAKR INTERNATIONAL MODEL SCHOOL',
+  address: 'No 1 Garkuwa Road By Sarki Avenue, Kurmin Mashi, Kaduna',
+  email: 'abubakrinternationalmodelschool@gmail.com',
+  phone: '+2348035766077',
+  motto: 'Patient Is The Beauty Of Knowledge',
+  /* ── LOGO PATH ──────────────────────────────────────────────────────
+     Put your logo image inside a folder called "image" in the
+     same directory as this HTML file, then set the filename below.
+     Example: if your logo is  image/logo.png  → 'logo.png'
+     Supported formats: .png  .jpg  .jpeg  .svg  .webp
+  ──────────────────────────────────────────────────────────────────── */
+  logoFile: 'logo.png'
+};
+
+/* ═══ CLASS OPTIONS ═══ */
+const CLASS_OPTIONS = {
+  nursery: ['Pre-Nursery', 'Nursery 1', 'Nursery 2', 'Nursery 3'],
+  primary: ['Primary 1', 'Primary 2', 'Primary 3', 'Primary 4', 'Primary 5', 'Primary 6'],
+  secondary: ['JSS 1', 'JSS 2', 'JSS 3', 'SSS 1', 'SSS 2', 'SSS 3']
+};
+
+// Get next class helper
+function getNextClass(currentLevel, currentClass) {
+  const classes = CLASS_OPTIONS[currentLevel];
+  const currentIndex = classes.indexOf(currentClass);
+  if (currentIndex === -1 || currentIndex === classes.length - 1) {
+    // Last class - move to next level
+    const levels = ['nursery', 'primary', 'secondary'];
+    const currentLevelIndex = levels.indexOf(currentLevel);
+    if (currentLevelIndex < levels.length - 1) {
+      const nextLevel = levels[currentLevelIndex + 1];
+      return { level: nextLevel, class: CLASS_OPTIONS[nextLevel][0] };
+    }
+    return null; // Graduated!
+  }
+  return { level: currentLevel, class: classes[currentIndex + 1] };
+}
+
+/* ═══ DATA ═══ */
+let students = JSON.parse(localStorage.getItem('edu_students')||'[]');
+let results  = JSON.parse(localStorage.getItem('edu_results') ||'[]');
+let settings = JSON.parse(localStorage.getItem('edu_settings')||'null') || {
+  gradingScale:[
+    {min:80,max:100,grade:'A',remark:'Excellent'},
+    {min:70,max:79, grade:'B',remark:'Very Good'},
+    {min:60,max:69, grade:'C',remark:'Good'},
+    {min:50,max:59, grade:'D',remark:'Pass'},
+    {min:0, max:49, grade:'F',remark:'Fail'},
+  ]
+};
+
+const TRAITS=['Punctuality & Regularity in Class','Neatness & Personal Hygiene','Honesty & Reliability','Relationship with Peers & Teachers','Attentiveness & Participation','Obedience & Compliance with Rules'];
+const DEFAULT_SUBJECTS=['Mathematics','English Language','Basic Science & Technology','Social Studies','Agricultural Science','Home Economics','Christian Religious Studies (CRS)','Civic Education','Computer Studies (ICT)'];
+
+// ── Section subjects (stored separately, never touches existing data) ──
+let sectionSubjects = JSON.parse(localStorage.getItem('edu_section_subjects')||'null') || {
+  nursery:   ['Numeracy','Literacy','Basic Science','Social Habits','Rhymes & Phonics','Drawing & Colouring','Physical & Health Education'],
+  primary:   ['Mathematics','English Language','Basic Science & Technology','Social Studies','Agricultural Science','Home Economics','Christian Religious Studies (CRS)','Civic Education','Computer Studies (ICT)'],
+  secondary: ['Mathematics','English Language','Biology','Chemistry','Physics','Economics','Government','Literature in English','Geography','Further Mathematics']
+};
+function saveSectionSubjects(){ localStorage.setItem('edu_section_subjects', JSON.stringify(sectionSubjects)); }
+function getSubjectsForStudent(studentId){
+  const st = students.find(s => s.id === studentId);
+  if(!st) return DEFAULT_SUBJECTS.slice();
+  return (sectionSubjects[st.level] || DEFAULT_SUBJECTS).slice();
+}
+
+let currentEditStudentId = null;
+let promotionSelections = new Set();
+
+function save(){localStorage.setItem('edu_students',JSON.stringify(students));localStorage.setItem('edu_results',JSON.stringify(results));localStorage.setItem('edu_settings',JSON.stringify(settings));}
+
+/* ═══ CLASS OPTIONS HELPER ═══ */
+function updateClassOptions(context, selectedValue=''){
+  const levelSelect = document.getElementById(`${context}-level`);
+  const classSelect = document.getElementById(`${context}-class`);
+  if(!levelSelect || !classSelect) return;
+  const level = levelSelect.value;
+  const options = CLASS_OPTIONS[level] || CLASS_OPTIONS.primary;
+  classSelect.innerHTML = options.map(c => `<option value="${c}" ${c===selectedValue?'selected':''}>${c}</option>`).join('');
+}
+
+function updatePromotionClassOptions(){
+  const level = document.getElementById('promote-to-level').value;
+  const classSelect = document.getElementById('promote-to-class');
+  const options = CLASS_OPTIONS[level] || CLASS_OPTIONS.primary;
+  classSelect.innerHTML = options.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+/* ═══ AUTO-COMMENT GENERATOR ═══ */
+function generateAutoComment(avg, studentName) {
+  const namePrefix = studentName.split(' ')[0];
+  if (avg >= 80) return `${namePrefix} has demonstrated outstanding academic excellence this term with an impressive ${avg}% average. Continue to maintain this high standard. Well done!`;
+  else if (avg >= 70) return `${namePrefix} has performed very well this term with a ${avg}% average. With more effort, excellent grade is within reach. Keep it up!`;
+  else if (avg >= 60) return `${namePrefix} has shown good understanding with a ${avg}% average. Encourage more reading and practice at home. Good effort!`;
+  else if (avg >= 50) return `${namePrefix} achieved a ${avg}% average. There is significant room for improvement. With more focus, better results are achievable.`;
+  else return `${namePrefix} scored ${avg}% this term. Extra attention is needed in studies. Please ensure homework and class activities are taken seriously.`;
+}
+
+/* ═══ NAV ═══ */
+function navigate(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')?.includes("'"+page+"'"))n.classList.add('active');});
+  if(page==='dashboard')     renderDashboard();
+  if(page==='students')      renderStudentList();
+  if(page==='enter-results') populateStudentSelect();
+  if(page==='promotion')     {populatePromotionFilters();renderPromotionList();}
+  if(page==='results')       {populateSessionFilter();renderResultsList();}
+  if(page==='ranking')       {populateClassFilter();renderRanking();}
+  if(page==='print-class')   initPrintClass();
+  if(page==='settings')      loadSettings();
+}
+
+/* ═══ GRADING ═══ */
+function getGrade(score){for(let g of settings.gradingScale)if(score>=g.min&&score<=g.max)return g;return{grade:'F',remark:'Fail'};}
+function gradeClass(g){return{A:'rc-grade-a',B:'rc-grade-b',C:'rc-grade-c',D:'rc-grade-d',F:'rc-grade-f'}[g]||'';}
+function gradePillClass(g){return{A:'grade-A',B:'grade-B',C:'grade-C',D:'grade-D',F:'grade-F'}[g]||'';}
+function calcAvg(r){return(!r.subjects||!r.subjects.length)?0:Math.round(r.overallTotal/r.subjects.length);}
+function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+
+/* ═══ QR CODE GENERATOR ═══ */
+function generateQRCode(containerId, studentData){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  container.innerHTML = '';
+  const qrData = JSON.stringify(studentData);
+  new QRCode(container, {
+    text: qrData,
+    width: 70,
+    height: 70,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+/* ═══ DASHBOARD ═══ */
+function renderDashboard(){
+  const n=students.filter(s=>s.level==='nursery').length,p=students.filter(s=>s.level==='primary').length,sec=students.filter(s=>s.level==='secondary').length;
+  document.getElementById('dashboard-stats').innerHTML=`
+    <div class="stat-card gold"><div class="stat-label">Total Students</div><div class="stat-value">${students.length}</div><div class="stat-sub">${results.length} result records</div></div>
+    <div class="stat-card nursery-c"><div class="stat-label">Nursery</div><div class="stat-value">${n}</div><div class="stat-sub">students</div></div>
+    <div class="stat-card primary-c"><div class="stat-label">Primary</div><div class="stat-value">${p}</div><div class="stat-sub">students</div></div>
+    <div class="stat-card secondary-c"><div class="stat-label">Secondary</div><div class="stat-value">${sec}</div><div class="stat-sub">students</div></div>`;
+  const recent=[...results].reverse().slice(0,6);
+  document.getElementById('recent-results-table').innerHTML=recent.length?`<table class="results-table"><thead><tr><th>Student</th><th>Class</th><th>Term</th><th>Total</th><th>Avg%</th></tr></thead><tbody>${recent.map(r=>{const st=students.find(s=>s.id===r.studentId);if(!st)return'';const avg=calcAvg(r);return`<tr><td><div class="student-name">${st.name}</div><div class="student-id">${st.regNum}</div></td><td style="font-size:12px">${r.term||'—'} / ${r.session||'—'}</td><td style="font-weight:700">${r.overallTotal}/${r.subjects.length*100}</td><td>${avg}%</td>`;}).join('')}</tbody></table>`:`<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">No Results Yet</div></div>`;
+  const breakdown=['nursery','primary','secondary'].map(lv=>{const lvR=results.filter(r=>{const s=students.find(s=>s.id===r.studentId);return s&&s.level===lv;});const avgs=lvR.map(r=>calcAvg(r));const mean=avgs.length?Math.round(avgs.reduce((a,b)=>a+b,0)/avgs.length):0;return{lv,count:students.filter(s=>s.level===lv).length,mean};}).filter(x=>x.count>0);
+  document.getElementById('performance-breakdown').innerHTML=breakdown.length?breakdown.map(b=>`<div style="margin-bottom:20px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-weight:600;text-transform:capitalize">${b.lv}</span><span style="font-family:'DM Mono',monospace;font-size:13px">${b.mean}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${b.mean}%;background:${b.lv==='nursery'?'var(--nursery)':b.lv==='primary'?'var(--primary)':'var(--secondary)'}"></div></div><div style="font-size:11px;color:var(--slate);margin-top:4px">${b.count} students · ${b.mean}% avg</div></div>`).join(''):`<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-title">No Data</div></div>`;
+}
+
+/* ═══ STUDENTS ═══ */
+function showAddStudentForm(){
+  document.getElementById('add-student-form').style.display='block';
+  updateClassOptions('new');
+}
+function hideAddStudentForm(){document.getElementById('add-student-form').style.display='none';}
+function addStudent(){
+  const name=document.getElementById('new-name').value.trim().toUpperCase(),regNum=document.getElementById('new-regnum').value.trim();
+  if(!name||!regNum){toast('Please fill in Name and Reg Number.','error');return;}
+  students.push({
+    id:Date.now().toString(),name,regNum,
+    className:document.getElementById('new-class').value,
+    level:document.getElementById('new-level').value,
+    gender:document.getElementById('new-gender').value,
+    session:document.getElementById('new-session').value.trim(),
+    attendance:document.getElementById('new-attendance').value.trim()||'— / —'
+  });
+  save();hideAddStudentForm();renderStudentList();toast(`Student "${name}" added.`,'success');
+}
+function renderStudentList(){
+  const q=(document.getElementById('student-search')?.value||'').toLowerCase(),lvl=document.getElementById('student-level-filter')?.value||'';
+  const filtered=students.filter(s=>(!q||s.name.toLowerCase().includes(q)||s.regNum.toLowerCase().includes(q))&&(!lvl||s.level===lvl));
+  document.getElementById('students-table-container').innerHTML=filtered.length?`<table class="results-table"><thead><tr><th>Name</th><th>Reg No.</th><th>Class</th><th>Level</th><th>Session</th><th>Actions</th></tr></thead><tbody>${filtered.map(s=>`<tr><td><div class="student-name">${s.name}</div></td><td><span class="student-id">${s.regNum}</span></td><td>${s.className}</td><td style="text-transform:capitalize;font-size:12px">${s.level}</td><td style="font-size:12px">${s.session}</td><td><button class="btn btn-sm btn-gold" onclick="openEditModal('${s.id}')">✏ Edit</button> <button class="btn btn-sm btn-danger" onclick="deleteStudent('${s.id}')">🗑 Delete</button></td>`).join('')}</tbody></td>`:`<div class="empty-state"><div class="empty-icon">👤</div><div class="empty-title">No Students</div></div>`;
+}
+function deleteStudent(id){if(!confirm('Delete this student AND all their results?'))return;students=students.filter(s=>s.id!==id);results=results.filter(r=>r.studentId!==id);save();renderStudentList();toast('Student deleted.','success');}
+
+/* ═══ EDIT / PROMOTE STUDENT ═══ */
+function openEditModal(id){
+  currentEditStudentId=id;
+  const s=students.find(s=>s.id===id);
+  if(!s)return;
+  document.getElementById('edit-name').value=s.name;
+  document.getElementById('edit-regnum').value=s.regNum;
+  document.getElementById('edit-level').value=s.level;
+  document.getElementById('edit-gender').value=s.gender;
+  document.getElementById('edit-session').value=s.session;
+  document.getElementById('edit-attendance').value=s.attendance;
+  updateClassOptions('edit', s.className);
+  document.getElementById('edit-student-modal').classList.add('open');
+}
+function closeEditModal(){document.getElementById('edit-student-modal').classList.remove('open');currentEditStudentId=null;}
+function saveStudentEdit(){
+  const idx=students.findIndex(s=>s.id===currentEditStudentId);
+  if(idx>=0){
+    students[idx].name=document.getElementById('edit-name').value.trim().toUpperCase();
+    students[idx].regNum=document.getElementById('edit-regnum').value.trim();
+    students[idx].level=document.getElementById('edit-level').value;
+    students[idx].className=document.getElementById('edit-class').value;
+    students[idx].gender=document.getElementById('edit-gender').value;
+    students[idx].session=document.getElementById('edit-session').value.trim();
+    students[idx].attendance=document.getElementById('edit-attendance').value.trim()||'— / —';
+    save();
+    closeEditModal();
+    renderStudentList();
+    toast('Student updated successfully!','success');
+  }
+}
+
+/* ═══ BATCH PROMOTION ═══ */
+function populatePromotionFilters(){
+  const classes=[...new Set(students.map(s=>s.className))].sort();
+  const classFilter = document.getElementById('promote-class-filter');
+  classFilter.innerHTML='<option value="">All Classes</option>'+classes.map(c=>`<option value="${c}">${c}</option>`).join('');
+  updatePromotionClassOptions();
+}
+function renderPromotionList(){
+  const levelFilter=document.getElementById('promote-level-filter').value;
+  const classFilter=document.getElementById('promote-class-filter').value;
+  let filtered=students.filter(s=>(!levelFilter||s.level===levelFilter)&&(!classFilter||s.className===classFilter));
+  promotionSelections.clear();
+  document.getElementById('promotion-list-container').innerHTML=filtered.length?`
+    <table class="results-table"><thead>汽<th class="checkbox-cell"><input type="checkbox" id="select-all-promo" onchange="toggleSelectAllPromo()"></th><th>Name</th><th>Reg No.</th><th>Current Class</th><th>Next Class</th></thead>
+    <tbody>${filtered.map(s=>{
+      const next=getNextClass(s.level,s.className);
+      const nextDisplay=next?`${next.level.toUpperCase()} - ${next.class}`:'GRADUATED!';
+      return`<tr><td class="checkbox-cell"><input type="checkbox" class="promo-student" data-id="${s.id}" onchange="updatePromoSelection('${s.id}', this.checked)"></td>
+      <td><div class="student-name">${s.name}</div></td><td>${s.regNum}</td><td>${s.className}</td><td><span style="color:${next?'var(--emerald)':'var(--ruby)'};font-weight:600">${nextDisplay}</span></td></tr>`;
+    }).join('')}</tbody></table>`:`<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">No students found</div></div>`;
+}
+function updatePromoSelection(id,checked){if(checked)promotionSelections.add(id);else promotionSelections.delete(id);}
+function toggleSelectAllPromo(){const chk=document.getElementById('select-all-promo');const allBoxes=document.querySelectorAll('.promo-student');allBoxes.forEach(cb=>{cb.checked=chk.checked;if(chk.checked)promotionSelections.add(cb.dataset.id);else promotionSelections.delete(cb.dataset.id);});}
+function selectAllPromotion(){document.querySelectorAll('.promo-student').forEach(cb=>{cb.checked=true;promotionSelections.add(cb.dataset.id);});}
+function deselectAllPromotion(){document.querySelectorAll('.promo-student').forEach(cb=>{cb.checked=false;});promotionSelections.clear();}
+function executeBatchPromotion(){
+  const targetLevel=document.getElementById('promote-to-level').value;
+  const targetClass=document.getElementById('promote-to-class').value;
+  if(promotionSelections.size===0){toast('No students selected.','error');return;}
+  if(!confirm(`Promote ${promotionSelections.size} student(s) to ${targetLevel.toUpperCase()} - ${targetClass}?`))return;
+  let promoted=0;
+  students.forEach(s=>{
+    if(promotionSelections.has(s.id)){
+      s.level=targetLevel;
+      s.className=targetClass;
+      promoted++;
+    }
+  });
+  save();
+  renderStudentList();
+  renderPromotionList();
+  toast(`${promoted} student(s) promoted successfully!`,'success');
+}
+
+/* ═══ ENTER RESULTS ═══ */
+function populateStudentSelect(){
+  document.getElementById('result-student-select').innerHTML='<option value="">— Select Student —</option>'+students.map(s=>`<option value="${s.id}">${s.name} — ${s.className}</option>`).join('');
+  document.getElementById('result-entry-section').style.display='none';
+}
+function loadStudentSubjects(){
+  const id=document.getElementById('result-student-select').value;
+  if(!id){document.getElementById('result-entry-section').style.display='none';return;}
+  document.getElementById('result-entry-section').style.display='block';
+  const session=document.getElementById('result-session').value;
+  const term=document.getElementById('result-term').value;
+  const ex=results.find(r=>r.studentId===id && r.session===session && r.term===term);
+  const subjs=ex?ex.subjects:getSubjectsForStudent(id).map(n=>({name:n,ca1:'',ca2:'',exam:''}));
+  document.getElementById('subject-rows').innerHTML=subjs.map((s,i)=>subjectRow(s,i)).join('');
+  document.getElementById('behavioural-grid').innerHTML=TRAITS.map(t=>`<div class="form-group"><label>${t}</label><select data-trait="${t}">${[5,4,3,2,1].map(v=>`<option value="${v}"${(ex?.behavioural?.[t])==v?' selected':''}>${v}</option>`).join('')}</select></div>`).join('');
+  document.getElementById('remark-class').value=ex?.remarkClass||'';
+  document.getElementById('remark-head').value=ex?.remarkHead||'';
+  document.getElementById('remark-director').value=ex?.remarkDirector||'';
+  if(ex?.classSize)document.getElementById('result-class-size').value=ex.classSize;
+}
+function subjectRow(s,i){const t=calcTotal(s.ca1,s.ca2,s.exam);const g=t!==''?getGrade(+t):{grade:'',remark:''};return`<tr><td><input type="text" value="${s.name||''}" class="subj-name" placeholder="Subject" style="width:100%"></td><td><input type="number" value="${s.ca1||''}" class="score-input subj-ca1" min="0" max="20" oninput="recalcRow(this)"></td><td><input type="number" value="${s.ca2||''}" class="score-input subj-ca2" min="0" max="20" oninput="recalcRow(this)"></td><td><input type="number" value="${s.exam||''}" class="score-input subj-exam" min="0" max="60" oninput="recalcRow(this)"></td><td class="subj-total" style="font-weight:700;text-align:center">${t!==''?t:'—'}</td><td class="subj-grade"><span class="grade-pill ${gradePillClass(g.grade)}">${g.grade||'—'}</span></td><td class="subj-remark" style="font-size:12px;color:var(--slate)">${g.remark||'—'}</td><td><button class="btn btn-sm btn-danger" onclick="removeSubjectRow(this)">✕</button></td>`;}
+function calcTotal(a,b,c){if(a===''&&b===''&&c==='')return'';return(parseFloat(a)||0)+(parseFloat(b)||0)+(parseFloat(c)||0);}
+function recalcRow(input){const row=input.closest('tr');const t=calcTotal(row.querySelector('.subj-ca1').value,row.querySelector('.subj-ca2').value,row.querySelector('.subj-exam').value);const g=t!==''?getGrade(+t):{grade:'',remark:''};row.querySelector('.subj-total').textContent=t!==''?t:'—';row.querySelector('.subj-grade').innerHTML=`<span class="grade-pill ${gradePillClass(g.grade)}">${g.grade||'—'}</span>`;row.querySelector('.subj-remark').textContent=g.remark||'—';}
+function addSubjectRow(){const tbody=document.getElementById('subject-rows');const tr=document.createElement('tr');tr.innerHTML=subjectRow({name:'',ca1:'',ca2:'',exam:''},tbody.rows.length);tbody.appendChild(tr);}
+function removeSubjectRow(btn){btn.closest('tr').remove();}
+function saveResults(){
+  const studentId=document.getElementById('result-student-select').value;
+  if(!studentId){toast('Select a student first.','error');return;}
+  const rows=document.querySelectorAll('#subject-rows tr'),subjects=[];
+  rows.forEach(row=>{const name=row.querySelector('.subj-name').value.trim();if(!name)return;const ca1=row.querySelector('.subj-ca1').value,ca2=row.querySelector('.subj-ca2').value,exam=row.querySelector('.subj-exam').value;const total=calcTotal(ca1,ca2,exam);const g=total!==''?getGrade(+total):{grade:'',remark:''};subjects.push({name,ca1:ca1||0,ca2:ca2||0,exam:exam||0,total:total!==''?+total:0,grade:g.grade,remark:g.remark});});
+  if(!subjects.length){toast('Add at least one subject.','error');return;}
+  const behavioural={};document.querySelectorAll('#behavioural-grid select[data-trait]').forEach(sel=>{behavioural[sel.dataset.trait]=parseInt(sel.value);});
+  const overallTotal=subjects.reduce((s,x)=>s+x.total,0);
+  const avg=Math.round(overallTotal/subjects.length);
+  const st=students.find(s=>s.id===studentId);
+  const autoComment = generateAutoComment(avg, st?.name || 'Student');
+  const record={
+    studentId,subjects,overallTotal,
+    session:document.getElementById('result-session').value,
+    term:document.getElementById('result-term').value,
+    classSize:parseInt(document.getElementById('result-class-size').value)||0,
+    behavioural,
+    remarkClass:document.getElementById('remark-class').value.trim()||autoComment,
+    remarkHead:document.getElementById('remark-head').value.trim()||'Great effort! Keep striving for excellence.',
+    remarkDirector:document.getElementById('remark-director').value.trim()||'We are proud of your progress.',
+    savedAt:Date.now()
+  };
+  const idx=results.findIndex(r=>r.studentId===studentId && r.session===record.session && r.term===record.term);
+  if(idx>=0)results[idx]=record;
+  else results.push(record);
+  save();toast('Results saved!','success');
+}
+function clearResultForm(){document.getElementById('result-student-select').value='';document.getElementById('result-entry-section').style.display='none';}
+
+/* ═══ VIEW RESULTS ═══ */
+function populateSessionFilter(){
+  const sessions=[...new Set(results.map(r=>r.session).filter(s=>s))];
+  const filter=document.getElementById('results-session-filter');
+  filter.innerHTML='<option value="">All Sessions</option>'+sessions.map(s=>`<option value="${s}">${s}</option>`).join('');
+}
+function renderResultsList(){
+  const q=(document.getElementById('results-search')?.value||'').toLowerCase(),lvl=document.getElementById('results-level-filter')?.value||'',session=document.getElementById('results-session-filter')?.value||'';
+  const filtered=results.filter(r=>{const st=students.find(s=>s.id===r.studentId);if(!st)return false;return(!lvl||st.level===lvl)&&(!session||r.session===session)&&(!q||st.name.toLowerCase().includes(q)||st.regNum.toLowerCase().includes(q));});
+  document.getElementById('results-table-container').innerHTML=filtered.length?`<table class="results-table"><thead><tr><th>Student</th><th>Class</th><th>Session/Term</th><th>Total</th><th>Avg%</th><th>Actions</th></tr></thead><tbody>${filtered.map(r=>{const st=students.find(s=>s.id===r.studentId);const avg=calcAvg(r);const g=getGrade(avg);return`<tr><td><div class="student-name">${st.name}</div><div class="student-id">${st.regNum}</div></td><td>${st.className}</td><td style="font-size:11px">${r.session} / ${r.term}</td><td style="font-weight:700">${r.overallTotal}</td><td><span class="grade-pill ${gradePillClass(g.grade)}">${avg}%</span></td><td><button class="btn btn-sm btn-gold" onclick="openReport('${r.studentId}','${r.session}','${r.term}')">📄 Report Card</button></td>`;}).join('')}</tbody></table>`:`<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">No Results Found</div></div>`;
+}
+
+/* ═══ RANKING ═══ */
+function populateClassFilter(){
+  const classes=[...new Set(students.map(s=>s.className))].sort();
+  const clsSel=document.getElementById('ranking-class-filter');
+  clsSel.innerHTML='<option value="">All Classes</option>'+classes.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+function renderRanking(){
+  const lvl=document.getElementById('ranking-level-filter')?.value||'',cls=document.getElementById('ranking-class-filter')?.value||'',term=document.getElementById('ranking-term-filter')?.value||'';
+  const ranked=results.filter(r=>{const st=students.find(s=>s.id===r.studentId);if(!st||(lvl&&st.level!==lvl)||(cls&&st.className!==cls)||(term&&r.term!==term))return false;return true;}).map(r=>({st:students.find(s=>s.id===r.studentId),r,avg:calcAvg(r)})).filter(x=>x.st).sort((a,b)=>b.r.overallTotal-a.r.overallTotal);
+  document.getElementById('ranking-table-container').innerHTML=ranked.length?`<table class="results-table"><thead><tr><th>Pos</th><th>Student</th><th>Class</th><th>Session/Term</th><th>Total</th><th>Avg%</th></tr></thead><tbody>${ranked.map((item,i)=>{const pos=i+1,bc=pos===1?'pos-1':pos===2?'pos-2':pos===3?'pos-3':'pos-other';return`<tr><td><span class="position-badge ${bc}">${pos}</span></td><td><div class="student-name">${item.st.name}</div><div class="student-id">${item.st.regNum}</div></td><td>${item.st.className}</td><td style="font-size:11px">${item.r.session}/${item.r.term}</td><td style="font-weight:700">${item.r.overallTotal}</td><td>${item.avg}%</td>`;}).join('')}</tbody></table>`:`<div class="empty-state"><div class="empty-icon">◆</div><div class="empty-title">No Data</div></div>`;
+}
+
+/* ═══ REPORT CARD HTML BUILDER with QR CODE ═══ */
+function buildReportCardHTML(studentId, session, term, isPrint=false){
+  const st=students.find(s=>s.id===studentId),r=results.find(r=>r.studentId===studentId && r.session===session && r.term===term);
+  if(!st||!r)return'<div class="empty-state">No results found for this session/term</div>';
+  const avg=calcAvg(r),overallMax=r.subjects.length*100;
+  let posText='—';
+  if(r.classSize&&r.classSize>0){const cR=results.filter(x=>{const s=students.find(s=>s.id===x.studentId);return s&&s.className===st.className && x.session===session && x.term===term;}).sort((a,b)=>b.overallTotal-a.overallTotal);posText=ordinal(cR.findIndex(x=>x.studentId===studentId)+1)+' out of '+r.classSize+' Pupils';}
+  
+  const qrId = `qr-${studentId}-${Date.now()}`;
+  const qrData = JSON.stringify({name:st.name,regNum:st.regNum,class:st.className,session,term,average:avg});
+  
+  // For preview: generate QR after DOM insert
+  if(!isPrint){
+    setTimeout(()=>{if(document.getElementById(qrId)) new QRCode(document.getElementById(qrId),{text:qrData,width:70,height:70,colorDark:'#000000',colorLight:'#ffffff'});},100);
+  }
+  
+  return`
+  <div class="rc-school-header"><div class="rc-logo-wrap">${schoolLogoDataURL ? `<img src="${schoolLogoDataURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : '&#x1F393;'}</div><div>
+    <div class="rc-school-name">${SCHOOL_INFO.name}</div>
+    <div class="rc-school-address">${SCHOOL_INFO.address}<br>Email: ${SCHOOL_INFO.email} | Tel: ${SCHOOL_INFO.phone}</div>
+    <div class="rc-motto">Motto: ${SCHOOL_INFO.motto}</div>
+  </div></div>
+  <div class="rc-section-bar">ACADEMIC PERFORMANCE REPORT SHEET - ${r.term} ${r.session}</div>
+  <table class="rc-info-grid">
+    <tr><td class="rc-info-label">Pupil's Name:<td class="rc-info-value" colspan="3" style="font-size:13px;font-weight:900">${st.name}<td class="rc-info-label">Reg. Number:<td class="rc-info-value">${st.regNum}<td class="rc-info-label">Class:<td class="rc-info-value">${st.className}</tr>
+    <tr><td class="rc-info-label">Session:<td class="rc-info-value">${r.session}<td class="rc-info-label">Term:<td class="rc-info-value">${r.term}<td class="rc-info-label">Gender:<td class="rc-info-value">${st.gender}<td class="rc-info-label">Average / %:<td class="rc-info-value">${avg} / ${avg}%</tr>
+    <tr><td class="rc-info-label">Attendance:<td class="rc-info-value">${st.attendance}<td class="rc-info-label">Overall Total:<td class="rc-info-value" style="font-weight:900;font-size:13px">${r.overallTotal} / ${overallMax}<td colspan="4"></tr>
+    <tr><td class="rc-info-label">Class Position:<td class="rc-info-value green" colspan="7">${posText}</tr>
+  </table>
+  <table class="rc-subjects"><thead>汽<th style="width:35%;text-align:left">Subjects</th><th>1st CA<br>(20%)</th><th>2nd CA<br>(20%)</th><th>Exam<br>(60%)</th><th>Total<br>(100%)</th><th>Grade</th><th>Remarks</th> </thead>
+    <tbody>${r.subjects.map(s=>`<tr><td>${s.name}</td><td>${s.ca1}</td><td>${s.ca2}</td><td>${s.exam}</td><td style="font-weight:700">${s.total}</td><td class="${gradeClass(s.grade)}">${s.grade}</td><td>${s.remark}</td>`).join('')}</tbody>
+  </table>
+  <div class="rc-bottom-grid"><div>
+    <div class="rc-sub-bar">AFFECTIVE TRAITS &amp; BEHAVIORAL ASSESSMENT</div>
+    <table class="rc-behavioral"><thead>汽<th style="text-align:left;width:75%">Behavioral Profile</th><th>Rating (1-5)</th> </thead>
+    <tbody>${TRAITS.map(t=>`<tr><td>${t}</td><td class="rc-rating-bold">${r.behavioural?.[t]??'—'}</td>`).join('')}</tbody></table>
+  </div><div>
+    <div class="rc-sub-bar">ACADEMIC GRADING KEY</div>
+    <table class="rc-grading"><thead>汽<th>Score Range</th><th>Grade</th><th>Remark</th> </thead>
+    <tbody>${settings.gradingScale.map(g=>`<tr><td>${g.min}%–${g.max}%</td><td style="font-weight:700">${g.grade}</td><td class="${g.grade==='F'?'rc-fail':''}">${g.remark}</td>`).join('')}</tbody></table>
+    <div class="rc-sub-bar" style="margin-top:8px">BEHAVIORAL RATING SCALE</div>
+    <div class="rc-rating-scale"><strong>5</strong> - Excellent &nbsp;|&nbsp; <strong>4</strong> - Very Good &nbsp;|&nbsp; <strong>3</strong> - Good &nbsp;|&nbsp; <strong>2</strong> - Fair &nbsp;|&nbsp; <strong>1</strong> - Poor</div>
+  </div></div>
+  <div class="rc-remarks-section">
+    <div class="rc-remark-row"><span class="rc-remark-label">Class Teacher:</span><span class="rc-remark-text" contenteditable="${!isPrint}" onblur="saveComment('${studentId}','${session}','${term}','class',this.innerText)" style="cursor:${isPrint?'default':'text'}">${r.remarkClass||generateAutoComment(avg, st.name)}</span></div>
+    <div class="rc-remark-row"><span class="rc-remark-label">Head Teacher:</span><span class="rc-remark-text" contenteditable="${!isPrint}" onblur="saveComment('${studentId}','${session}','${term}','head',this.innerText)" style="cursor:${isPrint?'default':'text'}">${r.remarkHead||'Great effort! Keep striving for excellence.'}</span></div>
+    <div class="rc-remark-row"><span class="rc-remark-label">Director:</span><span class="rc-remark-text" contenteditable="${!isPrint}" onblur="saveComment('${studentId}','${session}','${term}','director',this.innerText)" style="cursor:${isPrint?'default':'text'}">${r.remarkDirector||'We are proud of your progress. Continue to shine.'}</span></div>
+  </div>
+  <div class="rc-footer">
+    <div class="rc-qr"><div id="${qrId}" data-qrtext="${encodeURIComponent(qrData)}" style="width:70px;height:70px;"></div><div class="rc-qr-label">Verify with EduResults</div></div>
+    <div class="rc-signatures">
+      <div class="rc-sig-block"><div class="rc-sig-line"></div><div class="rc-sig-label">Class Teacher's Sign</div></div>
+      <div class="rc-stamp-box"><div>OFFICIAL</div><div>STAMP</div></div>
+      <div class="rc-sig-block"><div class="rc-sig-line"></div><div class="rc-sig-label">Head Teacher's Sign</div></div>
+    </div>
+  </div>`;
+}
+
+function saveComment(studentId, session, term, type, newComment){
+  const rIndex=results.findIndex(r=>r.studentId===studentId && r.session===session && r.term===term);
+  if(rIndex>=0){
+    if(type==='class') results[rIndex].remarkClass=newComment;
+    else if(type==='head') results[rIndex].remarkHead=newComment;
+    else if(type==='director') results[rIndex].remarkDirector=newComment;
+    save();toast('Comment saved!','success');
+  }
+}
+
+let _printData=null;
+function openReport(studentId, session, term){_printData={studentId,session,term};document.getElementById('report-printable').innerHTML=buildReportCardHTML(studentId,session,term,false);document.getElementById('report-overlay').classList.add('open');}
+function closeReport(){document.getElementById('report-overlay').classList.remove('open');}
+document.getElementById('report-overlay').addEventListener('click',function(e){if(e.target===this)closeReport();});
+function printSingleReport(){if(_printData)launchPrint([{studentId:_printData.studentId,session:_printData.session,term:_printData.term}]);}
+
+function saveSingleAsPDF(){
+  if(!_printData){toast('No report card open.','error');return;}
+  const items = [{studentId:_printData.studentId,session:_printData.session,term:_printData.term}];
+  const st = students.find(s=>s.id===_printData.studentId);
+  const filename = st ? st.name.replace(/\s+/g,'_')+'_ReportCard.pdf' : 'ReportCard.pdf';
+  generatePDFBlob(items, filename);
+}
+
+function saveClassAsPDF(){
+  const cls = document.getElementById('print-class-select').value;
+  const term = document.getElementById('print-term-select').value;
+  if(!cls){toast('Please select a class first.','error');return;}
+  const sorted = getClassStudentsSorted();
+  if(!sorted.length){toast('No results found for this class.','error');return;}
+  const list = sorted.map(s=>({studentId:s.id,session:s.resultSession,term:s.resultTerm}));
+  const filename = cls.replace(/\s+/g,'_')+'_'+term.replace(/\s+/g,'_')+'.pdf';
+  generatePDFBlob(list, filename);
+}
+
+function generatePDFBlob(items, filename){
+  toast('Preparing PDF, please wait...','success');
+  const cardHTMLs = items.map(item => buildReportCardHTML(item.studentId, item.session, item.term, true));
+  generateQRDataURLs(cardHTMLs, function(resolvedHTMLs){
+    let pagesHtml = resolvedHTMLs.map(h=>{
+      if(schoolLogoDataURL) h = h.replace(/src="[^"]*logo[^"]*"/g, `src="${schoolLogoDataURL}"`);
+      return `<div style="page-break-after:always;">${h}</div>`;
+    }).join('');
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${PRINT_CSS}</style></head><body style="margin:0;padding:0">${pagesHtml}</body></html>`;
+
+    // Electron desktop — opens Save dialog and writes real PDF
+    if(window.electronAPI && window.electronAPI.savePDF){
+      window.electronAPI.savePDF(html, filename);
+      return;
+    }
+    // Browser fallback — open print dialog, choose Save as PDF
+    const w = window.open('','_blank');
+    if(!w){toast('Allow popups to use Save as PDF','error');return;}
+    w.document.write(html);
+    w.document.close();
+    setTimeout(function(){ w.print(); }, 800);
+    toast('Use "Save as PDF" in the print dialog','success');
+  });
+}
+
+const PRINT_CSS=`
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:white;color:#111;font-size:11.5px}
+    @page{size:A4 portrait;margin:10mm 12mm}
+    .pw{page-break-after:always}.pw:last-child{page-break-after:avoid}
+    .rc{color:#111;font-size:11.5px;line-height:1.35}
+    .rc-school-header{display:flex;align-items:center;gap:16px;margin-bottom:8px;padding-bottom:10px;border-bottom:3px solid #000000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-logo-wrap{width:68px;height:68px;border-radius:50%;border:3px solid #000000;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px;background:#f0f4ff;overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-school-name{font-size:20px;font-weight:900;color:#000000;text-transform:uppercase;letter-spacing:.5px;line-height:1.1}
+    .rc-school-address{font-size:10.5px;color:#444;margin-top:3px;line-height:1.5}
+    .rc-motto{font-style:italic;font-weight:700;color:#c8922a;font-size:11px;margin-top:2px}
+    .rc-section-bar{background:#000000;color:white;text-align:center;font-weight:700;font-size:12px;letter-spacing:1.5px;padding:6px 12px;text-transform:uppercase;margin:8px 0 6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-info-grid{border:1px solid #bbb;border-collapse:collapse;width:100%;margin-bottom:8px}
+    .rc-info-grid td{border:1px solid #bbb;padding:4px 8px;font-size:11px;vertical-align:middle}
+    .rc-info-label{font-weight:600;color:#333;white-space:nowrap;background:#f5f5f5;width:100px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-info-value{font-weight:700;color:#111}.rc-info-value.green{color:#1a6b4a;font-weight:700}
+    .rc-subjects{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:11px}
+    .rc-subjects th{background:#000000;color:white;padding:5px 7px;text-align:center;font-weight:700;font-size:10.5px;border:1px solid #000000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-subjects th:first-child{text-align:left}
+    .rc-subjects td{border:1px solid #ccc;padding:4px 7px;text-align:center;vertical-align:middle}
+    .rc-subjects td:first-child{text-align:left;font-weight:500}
+    .rc-subjects tr:nth-child(even) td{background:#f8f8f8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-grade-a{color:#1a6b4a;font-weight:700}.rc-grade-b{color:#2c4a7c;font-weight:700}.rc-grade-c{color:#c8922a;font-weight:700}.rc-grade-d{color:#888;font-weight:700}.rc-grade-f{color:#b83232;font-weight:700}
+    .rc-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    .rc-sub-bar{background:#000000;color:white;font-weight:700;font-size:10px;letter-spacing:.8px;padding:4px 7px;text-transform:uppercase;border-left:4px solid #c8922a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-behavioral{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:3px}
+    .rc-behavioral th{background:#000000;color:white;padding:4px 7px;font-size:10px;font-weight:700;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-behavioral td{border:1px solid #ccc;padding:3px 7px;vertical-align:middle}
+    .rc-behavioral tr:nth-child(even) td{background:#f8f8f8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-rating-bold{font-weight:700;text-align:center}
+    .rc-grading{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:3px}
+    .rc-grading th{background:#000000;color:white;padding:4px 7px;font-size:10px;font-weight:700;text-align:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-grading td{border:1px solid #ccc;padding:3px 7px;text-align:center;vertical-align:middle}
+    .rc-grading tr:nth-child(even) td{background:#f8f8f8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-fail{color:#b83232;font-weight:700}
+    .rc-rating-scale{margin-top:5px;font-size:10px;background:#f0f4ff;border:1px solid #ccc;padding:4px 7px;border-radius:2px;color:#333;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .rc-rating-scale strong{color:#000000}
+    .rc-remarks-section{margin-bottom:10px}
+    .rc-remark-row{display:flex;gap:8px;margin-bottom:4px;font-size:11px;align-items:flex-start}
+    .rc-remark-label{font-weight:700;white-space:nowrap;min-width:100px;color:#000000}
+    .rc-remark-text{font-style:italic;color:#333;border-bottom:1px solid #bbb;flex:1;padding-bottom:1px}
+    .rc-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;padding-top:8px;border-top:1px solid #ccc;gap:20px}
+    .rc-signatures{display:flex;justify-content:space-between;align-items:flex-end;flex:2;gap:20px}
+    .rc-sig-block{text-align:center}
+    .rc-sig-line{width:170px;border-bottom:1.5px solid #333;margin-bottom:4px}
+    .rc-sig-label{font-size:10.5px;font-weight:600;color:#333}
+    .rc-stamp-box{border:1.5px dashed #aaa;width:90px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:#aaa;letter-spacing:1px;font-weight:600;text-transform:uppercase;gap:3px}
+    .rc-qr{text-align:center;flex-shrink:0}
+    .rc-qr canvas,.rc-qr img{width:70px;height:70px;border:1px solid #ddd;padding:4px;background:white}
+    .rc-qr-label{font-size:8px;color:#666;margin-top:2px}
+  `;
+
+function generateQRDataURLs(htmlStrings, callback) {
+  const tempHolder = document.createElement('div');
+  tempHolder.style.cssText = 'position:fixed;left:-9999px;top:-9999px;visibility:hidden';
+  document.body.appendChild(tempHolder);
+
+  let pending = 0;
+  const results = htmlStrings.map(html => {
+    // Find all data-qrtext="..." placeholders
+    const matches = [...html.matchAll(/data-qrtext="([^"]+)"/g)];
+    return { html, matches };
+  });
+
+  // Count total QRs needed
+  results.forEach(r => { pending += r.matches.length; });
+  if (pending === 0) { document.body.removeChild(tempHolder); callback(htmlStrings); return; }
+
+  results.forEach((item, idx) => {
+    item.matches.forEach(match => {
+      const encoded = match[1];
+      const qrText = decodeURIComponent(encoded);
+      const div = document.createElement('div');
+      div.style.cssText = 'width:70px;height:70px;';
+      tempHolder.appendChild(div);
+      new QRCode(div, {text: qrText, width: 70, height: 70, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M});
+      setTimeout(() => {
+        const canvas = div.querySelector('canvas');
+        const dataURL = canvas ? canvas.toDataURL('image/png') : '';
+        // Replace the placeholder div with an <img> tag using the data URL
+        const placeholder = new RegExp(`<div[^>]*data-qrtext="${encoded}"[^>]*>(</div>)?`, 'g');
+        item.html = item.html.replace(placeholder, `<img src="${dataURL}" style="width:70px;height:70px;border:1px solid #ddd;padding:4px;background:white;">`);
+        pending--;
+        if (pending === 0) {
+          document.body.removeChild(tempHolder);
+          callback(results.map(r => r.html));
+        }
+      }, 300);
+    });
+  });
+}
+
+function launchPrint(items){
+  // Build all report card HTML strings (isPrint=true so no live QR timers)
+  const cardHTMLs = items.map(item => buildReportCardHTML(item.studentId, item.session, item.term, true));
+
+  generateQRDataURLs(cardHTMLs, function(resolvedHTMLs) {
+      let pagesHtml = resolvedHTMLs.map(h => {
+        return `<div class="pw rc">${h}</div>`;
+      }).join('');
+
+      const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${PRINT_CSS}</style></head><body>${pagesHtml}</body></html>`;
+      // Use Electron native print if running as desktop app
+      if(window.electronAPI && window.electronAPI.print){
+        window.electronAPI.print(html);
+      } else {
+        // Browser fallback — use iframe blob
+        const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${PRINT_CSS}</style></head><body>${pagesHtml}<script>window.onload=function(){window.print();}<\/script></body></html>`;
+        const iframe = document.getElementById('print-frame');
+        const blob = new Blob([fullHtml], {type: 'text/html'});
+        const url = URL.createObjectURL(blob);
+        iframe.src = url;
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
+    });
+}
+function initPrintClass(){
+  const classes=[...new Set(students.map(s=>s.className))].sort();
+  document.getElementById('print-class-select').innerHTML='<option value="">— Select a class —</option>'+classes.map(c=>`<option value="${c}">${c}</option>`).join('');
+  document.getElementById('print-class-preview').style.display='none';
+}
+function getClassStudentsSorted(){
+  const cls=document.getElementById('print-class-select').value,term=document.getElementById('print-term-select').value,sort=document.getElementById('print-class-sort').value;
+  let list=students.filter(s=>s.className===cls);
+  list=list.map(s=>{const r=results.find(r=>r.studentId===s.id && r.term===term);return{s,r};}).filter(x=>x.r);
+  if(sort==='name') list.sort((a,b)=>a.s.name.localeCompare(b.s.name));
+  else list.sort((a,b)=>sort==='total-desc'?b.r.overallTotal-a.r.overallTotal:a.r.overallTotal-b.r.overallTotal);
+  return list.map(x=>({...x.s,resultSession:x.r.session,resultTerm:x.r.term}));
+}
+function previewClassPrint(){
+  const cls=document.getElementById('print-class-select').value;
+  if(!cls){document.getElementById('print-class-preview').style.display='none';document.getElementById('print-class-info').textContent='';return;}
+  const sorted=getClassStudentsSorted();
+  document.getElementById('print-class-info').innerHTML=`<span style="color:var(--emerald);font-weight:600">${sorted.length} students with results for ${document.getElementById('print-term-select').value}</span>`;
+  if(!sorted.length){document.getElementById('print-class-preview').style.display='none';return;}
+  document.getElementById('print-class-preview').style.display='block';
+  document.getElementById('print-class-list').innerHTML=`<table class="results-table"><thead><tr><th>#</th><th>Student</th><th>Reg No.</th><th>Total</th><th>Avg%</th></tr></thead><tbody>${sorted.map((s,i)=>{const r=results.find(r=>r.studentId===s.id && r.term===document.getElementById('print-term-select').value);return`<tr><td style="font-weight:700;color:var(--slate)">${i+1}</td><td><div class="student-name">${s.name}</div></td><td><span class="student-id">${s.regNum}</span></td><td style="font-weight:700">${r?r.overallTotal:'—'}</td><td>${r?calcAvg(r)+'%':'—'}</td>`;}).join('')}</tbody></tr>`;
+}
+function printClassResults(){
+  const cls=document.getElementById('print-class-select').value,term=document.getElementById('print-term-select').value;
+  if(!cls){toast('Please select a class.','error');return;}
+  const list=getClassStudentsSorted();
+  if(!list.length){toast('No students with results for this term.','error');return;}
+  toast(`Preparing ${list.length} report cards for ${term}...`,'success');
+  setTimeout(()=>launchPrint(list.map(s=>({studentId:s.id,session:s.resultSession,term:s.resultTerm}))),400);
+}
+
+// ── Logo stored as base64 in localStorage ──
+let schoolLogoDataURL = localStorage.getItem('edu_logo') || null;
+
+function uploadLogo(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    schoolLogoDataURL = e.target.result;
+    localStorage.setItem('edu_logo', schoolLogoDataURL);
+    updateLogoPreview();
+    const st = document.getElementById('logo-upload-status');
+    if(st){st.textContent = '\u2713 Logo saved!'; st.style.color = '#1a6b4a';}
+    toast('School logo saved!','success');
+  };
+  reader.readAsDataURL(file);
+  event.target.value = '';
+}
+function removeLogo(){
+  schoolLogoDataURL = null;
+  localStorage.removeItem('edu_logo');
+  updateLogoPreview();
+  const st = document.getElementById('logo-upload-status');
+  if(st){st.textContent='Logo removed.';st.style.color='var(--slate)';}
+  toast('Logo removed.','success');
+}
+function updateLogoPreview(){
+  const img = document.getElementById('logo-preview-img');
+  const emoji = document.getElementById('logo-preview-emoji');
+  if(!img) return;
+  if(schoolLogoDataURL){
+    img.src = schoolLogoDataURL;
+    img.style.display = 'block';
+    if(emoji) emoji.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    if(emoji) emoji.style.display = '';
+  }
+}
+function loadSettings(){
+  document.getElementById('grading-scale-rows').innerHTML=settings.gradingScale.map((g,i)=>`<tr><td><input type="text" value="${g.grade}" data-gi="${i}" data-field="grade" style="width:50px;text-align:center"></td><td><input type="number" value="${g.min}" data-gi="${i}" data-field="min" style="width:70px;text-align:center"></td><td><input type="number" value="${g.max}" data-gi="${i}" data-field="max" style="width:70px;text-align:center"></td><td><input type="text" value="${g.remark}" data-gi="${i}" data-field="remark" style="width:100px"></td>`).join('');
+  updateLogoPreview();
+  // Reset subject section editor when entering settings
+  _activeSubjectSection = null;
+  document.getElementById('subject-section-editor').style.display = 'none';
+  document.getElementById('subject-section-placeholder').style.display = 'block';
+}
+
+/* ═══ SUBJECT SECTION EDITOR ═══ */
+let _activeSubjectSection = null;
+const DEFAULT_SECTION_SUBJECTS = {
+  nursery:   ['Numeracy','Literacy','Basic Science','Social Habits','Rhymes & Phonics','Drawing & Colouring','Physical & Health Education'],
+  primary:   ['Mathematics','English Language','Basic Science & Technology','Social Studies','Agricultural Science','Home Economics','Christian Religious Studies (CRS)','Civic Education','Computer Studies (ICT)'],
+  secondary: ['Mathematics','English Language','Biology','Chemistry','Physics','Economics','Government','Literature in English','Geography','Further Mathematics']
+};
+function showSubjectSection(level){
+  _activeSubjectSection = level;
+  document.getElementById('subject-section-placeholder').style.display = 'none';
+  document.getElementById('subject-section-editor').style.display = 'block';
+  const colors = {nursery:'var(--nursery)',primary:'var(--primary)',secondary:'var(--secondary)'};
+  const label = document.getElementById('subject-section-label');
+  label.textContent = level.charAt(0).toUpperCase()+level.slice(1)+' Section';
+  label.style.color = colors[level];
+  const hints = {nursery:'Applies to Pre-Nursery, Nursery 1, 2 & 3.',primary:'Applies to Primary 1 through Primary 6.',secondary:'Applies to JSS 1–3 and SSS 1–3.'};
+  document.getElementById('subject-section-hint').textContent = hints[level];
+  renderSectionSubjectRows(level);
+}
+function renderSectionSubjectRows(level){
+  const list = document.getElementById('subject-section-list');
+  const subjects = sectionSubjects[level] || [];
+  list.innerHTML = subjects.map((s,i) => `<div style="display:flex;gap:8px;align-items:center" data-row="${i}"><input type="text" value="${s.replace(/"/g,'&quot;')}" placeholder="Subject name" style="flex:1;padding:8px 12px;border:1px solid var(--mist);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif"><button class="btn btn-sm btn-danger" onclick="removeSectionSubjectRow(${i})">✕</button></div>`).join('');
+}
+function addSectionSubjectRow(){
+  if(!_activeSubjectSection){toast('Select a section first.','error');return;}
+  sectionSubjects[_activeSubjectSection].push('');
+  renderSectionSubjectRows(_activeSubjectSection);
+  const rows = document.querySelectorAll('#subject-section-list [data-row]');
+  if(rows.length) rows[rows.length-1].querySelector('input').focus();
+}
+function removeSectionSubjectRow(i){
+  if(!_activeSubjectSection) return;
+  sectionSubjects[_activeSubjectSection].splice(i,1);
+  renderSectionSubjectRows(_activeSubjectSection);
+}
+function saveSectionSubjectList(){
+  if(!_activeSubjectSection){toast('Select a section first.','error');return;}
+  const inputs = document.querySelectorAll('#subject-section-list [data-row] input');
+  sectionSubjects[_activeSubjectSection] = [...inputs].map(inp=>inp.value.trim()).filter(s=>s);
+  saveSectionSubjects();
+  renderSectionSubjectRows(_activeSubjectSection);
+  toast(_activeSubjectSection.charAt(0).toUpperCase()+_activeSubjectSection.slice(1)+' subjects saved!','success');
+}
+function resetSectionSubjects(){
+  if(!_activeSubjectSection) return;
+  if(!confirm('Reset '+_activeSubjectSection+' subjects to default?')) return;
+  sectionSubjects[_activeSubjectSection] = [...DEFAULT_SECTION_SUBJECTS[_activeSubjectSection]];
+  saveSectionSubjects();
+  renderSectionSubjectRows(_activeSubjectSection);
+  toast('Reset to default.','success');
+}
+function saveGradingScale(){
+  document.querySelectorAll('#grading-scale-rows input').forEach(inp=>{const i=inp.dataset.gi,f=inp.dataset.field;settings.gradingScale[i][f]=f==='min'||f==='max'?+inp.value:inp.value;});
+  save();toast('Grading scale saved!','success');
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify({_version:4,_exported:new Date().toISOString(),students,results,settings},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=`EduResults-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);
+  toast('Backup downloaded!','success');
+}
+function importData(event){
+  const file=event.target.files[0];if(!file)return;
+  const status=document.getElementById('import-status');status.textContent='Reading file…';
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!Array.isArray(data.students)||!Array.isArray(data.results)||!data.settings)throw new Error('Invalid backup file format.');
+      if(!confirm(`Replace all current data?\n• ${data.students.length} students\n• ${data.results.length} result records\n\nContinue?`)){status.textContent='Cancelled.';event.target.value='';return;}
+      students=data.students;results=data.results;settings=data.settings;
+      save();status.textContent=`✓ Imported ${students.length} students & ${results.length} results.`;status.style.color='var(--emerald)';
+      loadSettings();toast('Data imported!','success');location.reload();
+    }catch(err){status.textContent='✕ Error: '+err.message;status.style.color='var(--ruby)';toast('Import failed.','error');}
+    event.target.value='';
+  };
+  reader.readAsText(file);
+}
+
+function toast(msg,type='success'){const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`${type==='success'?'✓':'✕'} ${msg}`;document.getElementById('toast-container').appendChild(el);setTimeout(()=>el.remove(),3100);}
+
+renderDashboard();
+</script>
+</body>
+</html>
