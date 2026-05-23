@@ -1,4 +1,4 @@
-name: Build EduResults EXE
+name: Build Abubakrschool EXE
 
 on:
   push:
@@ -22,5 +22,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: EduResults-Windows-Setup
+          name: Abubakrschool-Windows-Setup
           path: dist/*.exe
